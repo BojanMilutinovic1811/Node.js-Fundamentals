@@ -1,7 +1,13 @@
 const express = require('express');
+const middlewareTest = require('./middlewareTest')
 
 const app = express();
 const customers = [{id: 1, name:'Bojan'}, {id: 2, name:'Zagor'}, {id: 3, name: "Ciko"}]
+
+
+
+app.use(middlewareTest);
+
 
 app.get('/', (req, res) => {
     res.send('hello there')
