@@ -5,21 +5,27 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const flash = require('connect-flash')
 const session = require('express-session') 
+const path = require('path')
 
 
 const app = express();
+
+const ideas = require('./routes/ideas');
+const users = require('./routes/users')
 
 mongoose.connect('mongodb+srv://bojan:bojan@mongodbtest-mjihi.mongodb.net/test?retryWrites=true', {useNewUrlParser: true})
 .then(()=> console.log('Mongo db connected'))
 .catch(err => console.log(err))
 
 
-require('./models/Ideas')
-const Idea = mongoose.model('ideas')
+
 
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
+
+app.use(express.static(path.join(__dirname, 'public')))
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -34,74 +40,29 @@ app.use(session({
   saveUninitialized: true
 }))
 
+app.use(flash())
+
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next()
+})
+
+
+
 
 app.get('/', (req, res) => {
     res.render('home')
 })
 
-app.get('/ideas', (req, res) => {
-
-    Idea.find({})
-    .sort({date: 'desc'})
-    .then(ideas => {
-        res.render('./ideas/indexIdeas', {ideas})
-    })
-
-})
-
-app.get('/ideas/edit/:id', (req, res) => {
-    Idea.findOne({
-        _id: req.params.id
-    })
-    .then(idea => {
-        console.log(idea);
-        res.render('./ideas/editIdea', {idea})
-    })
-})
-
-app.put('/ideas/:id', (req, res) => {
-
-    Idea.findOne({
-        _id: req.params.id
-    }).then( idea => {
-        idea.title = req.body.title;
-        idea.details = req.body.details; 
-
-        idea.save()
-        .then(idea => {
-            res.redirect('/ideas')
-        })
-    } )
-})
-
-app.delete('/ideas/:id', (req, res) => {
-    Idea.deleteOne({
-        _id: req.params.id
-    }).then(()=> res.redirect('/ideas'))
-})
-
-app.get('/ideas/add', (req, res) => {
-    res.render('./ideas/addIdea')
-})
-
-app.post('/ideas', (req, res) => {
-    const newUser = {
-        title: req.body.title,
-        details: req.body.details
-    }
-
-    new Idea(newUser).save()
-        .then(idea => {
-            res.redirect('/ideas')
-        })
-})
-
-
-
-
 app.get('/about', (req, res) => {
     res.render('about')
 })
+
+app.use('/ideas', ideas)
+
+app.use('/users', users)
 
 
 
