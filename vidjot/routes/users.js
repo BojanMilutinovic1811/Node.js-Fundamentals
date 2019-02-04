@@ -9,11 +9,25 @@ const User = mongoose.model('vidjotUser')
 
 
 router.get('/register', (req, res) => {
-    res.render('./users/register')
+    res.render('users/register')
 })
 
 router.get('/login', (req, res) => {
-    res.render('./users/login')
+    res.render('users/login')
+})
+
+router.get('/logout', (req, res) => {
+    req.logout();
+    req.flash('success_msg', "You are logged out!")
+    res.redirect('/users/login')
+})
+
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/ideas',
+        failureRedirect: '/users/login',
+        failureFlash: true
+    })(req, res, next)
 })
 
 
@@ -62,7 +76,6 @@ router.post('/register', (req, res) => {
                             .catch(err => console.log(err))
                         })
                     })
-                    console.log(newUser);
                 }
             })
     }

@@ -1,7 +1,13 @@
+{{#if error}}
+<div class='row'>
+<div class="alert col-md-6 text-center mx-auto alert-danger">{{error}}</div>
+</div>
+{{/if}}
+
 {{#each errors}}
-
-<div class="alert alert-danger">{{text}}</div>
-
+<div class='row'>
+<div class="alert text-center col-md-6 mx-auto alert-danger">{{text}}</div>
+</div>
 {{else}}
 
 {{/each}}

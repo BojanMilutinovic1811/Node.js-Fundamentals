@@ -6,12 +6,16 @@ const methodOverride = require('method-override')
 const flash = require('connect-flash')
 const session = require('express-session') 
 const path = require('path')
+const passport = require('passport')
 
 
 const app = express();
 
 const ideas = require('./routes/ideas');
 const users = require('./routes/users')
+
+//passport config
+require('./config/passport')(passport)
 
 mongoose.connect('mongodb+srv://bojan:bojan@mongodbtest-mjihi.mongodb.net/test?retryWrites=true', {useNewUrlParser: true})
 .then(()=> console.log('Mongo db connected'))
@@ -40,12 +44,19 @@ app.use(session({
   saveUninitialized: true
 }))
 
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+
+
 app.use(flash())
 
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
+    res.locals.user = req.user || null; 
     next()
 })
 
