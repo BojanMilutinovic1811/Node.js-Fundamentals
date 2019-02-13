@@ -1,0 +1,14 @@
+<% include partials/header.ejs %>
+
+<% blogs.forEach(blog => { %>
+
+    <div>
+        <h3><%= blog.title %></h3>
+        <p><%= blog.image %></p>
+        <p><%= blog.created %></p>
+        <p><%= blog.body %></p>
+    </div>
+
+<% }) %>
+
+<% include partials/footer.ejs %>
