@@ -1,0 +1,17 @@
+<% include partials/header.ejs %>
+
+<div class="ui grid">
+        <div class=" ui segment centered ten wide column">
+            <h2 class="ui center aligned"><%= blog.title   %></h2>
+            <img class="ui centered medium image" src="<%= blog.image %>">
+            <p>
+                <%= blog.body %>
+            </p>
+            <a class="ui inverted blue left floated button" href="/">Back to Posts</a>
+            <form action="/blogs/<%=blog.id%>?_method=delete" method='post'><button class="ui inverted red right floated button">Delete Post</button></form>
+            
+            <a class="ui inverted right floated olive button" href='/blogs/<%=blog.id %>/edit'>Update Post</a>
+        </div>
+      
+</div>
+<% include partials/footer.ejs %>

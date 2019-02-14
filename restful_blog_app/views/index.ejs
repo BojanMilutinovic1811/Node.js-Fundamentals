@@ -1,14 +1,18 @@
 <% include partials/header.ejs %>
+<div class="ui grid">
+    <div class='eight wide column centered segment'>
 
 <% blogs.forEach(blog => { %>
-
-    <div>
-        <h3><%= blog.title %></h3>
-        <p><%= blog.image %></p>
-        <p><%= blog.created %></p>
-        <p><%= blog.body %></p>
+        <div class="ui segment">
+        <h2><%= blog.title %></h2>
+        <img src='<%= blog.image %>'/>
+        <p><%= blog.created.toDateString() %></p>
+        <p><%= blog.body.substring(0,40) %>...</p>
+        <a href='/blogs/<%= blog._id %>'class="ui inverted green button">Read More</a>
     </div>
 
 <% }) %>
+</div>
+</div>
 
 <% include partials/footer.ejs %>
