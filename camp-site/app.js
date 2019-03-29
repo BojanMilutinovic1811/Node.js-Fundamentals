@@ -1,8 +1,11 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const database = require('./config/keys').mongoURI;
-const Campground = require('./models/Campground');
-const Comment = require('./models/Comment')
+
+//routes
+const campgrounds = require('./routes/campgrounds')
+const auth = require('./routes/auth')
+const comments = require('./routes/comments')
 
 const app = express();
 
@@ -16,67 +19,17 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set("view engine", "ejs");
 
-// const campgrounds = [{ name: 'Zlatibor', img: 'http://monix.rs/wp-content/uploads/2017/08/Naselje-Vodice.jpg' },
-// { name: 'Durmitor', img: 'http://monix.rs/wp-content/uploads/2017/08/Naselje-Vodice.jpg' }, { name: 'Tara', img: 'http://monix.rs/wp-content/uploads/2017/08/Naselje-Vodice.jpg' }]
+
 
 app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/campgrounds", (req, res) => {
-  Campground.find({})
-    .then(campgrounds => {
-      res.render("campgrounds", { campgrounds });
-    })
-    .catch(err => console.log(err))
-});
-
-app.post('/campgrounds', (req, res) => {
-  const location = req.body.name;
-  const image = req.body.image;
-  const description = req.body.description;
-  const newCampground = { location, image, description }
-  Campground.create(newCampground)
-    .then(newCampground => {
-      res.redirect('/campgrounds')
-    })
-    .catch(err => console.log(err))
-})
-
-app.get('/campgrounds/new', (req, res) => {
-  res.render('new')
-})
+app.use('/', auth)
+app.use('/campgrounds', campgrounds)
+app.use('/campgrounds', comments)
 
 
-app.get('/campgrounds/:id', (req, res) => {
 
-  Campground.findById(req.params.id).populate('comments').exec()
-    .then(campground => {
-      console.log(campground);
-      res.render('show', { campground })
-    })
-    .catch(err => console.log(err))
-})
 
-app.get('/campgrounds/:id/comments/new', (req, res) => {
-  Campground.findById(req.params.id)
-    .then(campground => {
-      res.render('comments/new', { campground })
-    })
-})
-
-app.post('/campgrounds/:id/comments', (req, res) => {
-  Campground.findById(req.params.id)
-    .then(campground => {
-      Comment.create(req.body.comment)
-        .then(comment => {
-
-          campground.comments.push(comment)
-          campground.save()
-          console.log(campground);
-          res.redirect('/campgrounds/' + campground._id)
-        })
-    })
-})
-
-app.listen(3000, () => console.log("app runnin on port 3000"));
+app.listen(3001, () => console.log("app runnin on port 3001"));
