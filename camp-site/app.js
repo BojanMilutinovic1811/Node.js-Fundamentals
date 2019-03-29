@@ -1,7 +1,8 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const database = require('./config/keys').mongoURI;
-const Campground = require('./models/Campground')
+const Campground = require('./models/Campground');
+const Comment = require('./models/Comment')
 
 const app = express();
 
@@ -49,12 +50,33 @@ app.get('/campgrounds/new', (req, res) => {
 
 app.get('/campgrounds/:id', (req, res) => {
 
-  Campground.findById(req.params.id)
+  Campground.findById(req.params.id).populate('comments').exec()
     .then(campground => {
       console.log(campground);
       res.render('show', { campground })
     })
     .catch(err => console.log(err))
+})
+
+app.get('/campgrounds/:id/comments/new', (req, res) => {
+  Campground.findById(req.params.id)
+    .then(campground => {
+      res.render('comments/new', { campground })
+    })
+})
+
+app.post('/campgrounds/:id/comments', (req, res) => {
+  Campground.findById(req.params.id)
+    .then(campground => {
+      Comment.create(req.body.comment)
+        .then(comment => {
+
+          campground.comments.push(comment)
+          campground.save()
+          console.log(campground);
+          res.redirect('/campgrounds/' + campground._id)
+        })
+    })
 })
 
 app.listen(3000, () => console.log("app runnin on port 3000"));

@@ -2,6 +2,17 @@
 
 <h3><%= campground.location %></h3>
 <p><%= campground.description %></p>
+<ul class="list-group">
+    <% campground.comments.forEach(comment => { %>
+    <li class="list-group-item">
+        <span class="comment-text"><%= comment.text %></span>
+        <span class="comment-author float-right"><%= comment.author %></span>
+    </li>
+
+    <% }) %>
+</ul>
+<a href="/campgrounds/<%= campground._id %>/comments/new" class="btn float-right btn-primary mt-3">leave a comment</a>
+<br>
 
 <a href="/campgrounds">Campgrounds</a>
 
