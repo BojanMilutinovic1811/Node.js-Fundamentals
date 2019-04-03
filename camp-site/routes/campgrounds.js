@@ -9,14 +9,16 @@ router.get("/", (req, res) => {
         .catch(err => console.log(err))
 });
 
-router.post('/', (req, res) => {
+router.post('/', isLoggedIn, (req, res) => {
     const newCampground = req.body.campgrounds
+    newCampground.author = { id: req.user._id, username: req.user.username }
+    console.log(newCampground)
     Campground.create(newCampground)
         .then(() => res.redirect('/campgrounds'))
         .catch(err => console.log(err))
 })
 
-router.get('/new', (req, res) => res.render('campgrounds/new'))
+router.get('/new', isLoggedIn, (req, res) => res.render('campgrounds/new'))
 
 
 router.get('/:id', (req, res) => {
@@ -24,6 +26,13 @@ router.get('/:id', (req, res) => {
         .then(campground => res.render('campgrounds/show', { campground }))
         .catch(err => console.log(err))
 })
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next()
+    }
+    res.redirect('/login')
+}
 
 
 module.exports = router; 

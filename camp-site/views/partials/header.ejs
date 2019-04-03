@@ -21,9 +21,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
+        <% if (!currentUser) { %>
         <a class="nav-item nav-link" href="/login">Login</a>
-        <a class="nav-item nav-link" href="/logout">Log out</a>
         <a class="nav-item nav-link" href="/register">Register</a>
+        <% }  else { %>
+        <a class="nav-item nav-link" href="/logout">Log out</a>
+        <% } %>
       </div>
     </div>
   </nav>

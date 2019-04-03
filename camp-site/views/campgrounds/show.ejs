@@ -1,12 +1,13 @@
 <% include ../partials/header %>
 
 <h3><%= campground.location %></h3>
+<p>Created by: <%= campground.author.username %></p>
 <p><%= campground.description %></p>
 <ul class="list-group">
     <% campground.comments.forEach(comment => { %>
     <li class="list-group-item">
         <span class="comment-text"><%= comment.text %></span>
-        <span class="comment-author float-right"><%= comment.author %></span>
+        <span class="comment-author float-right"><%= comment.author.username %></span>
     </li>
 
     <% }) %>
