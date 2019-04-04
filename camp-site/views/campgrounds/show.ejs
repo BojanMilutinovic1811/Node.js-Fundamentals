@@ -2,6 +2,14 @@
 
 <h3><%= campground.location %></h3>
 <p>Created by: <%= campground.author.username %></p>
+
+<% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+<a href='/campgrounds/<%= campground._id %>/edit'>Edit campground</a>
+<form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+    <input type="submit" value="delete">
+</form>
+<% } %>
+
 <p><%= campground.description %></p>
 <ul class="list-group">
     <% campground.comments.forEach(comment => { %>

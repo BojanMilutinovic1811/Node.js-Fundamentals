@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/User')
+const methodOverride = require('method-override')
 
 //routes
 const campgrounds = require('./routes/campgrounds')
@@ -21,6 +22,13 @@ mongoose.connect(database, {
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'))
+app.use(methodOverride('_method'))
+
+//setting up local for current user
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user
+  next()
+})
 
 
 // passport configuration
