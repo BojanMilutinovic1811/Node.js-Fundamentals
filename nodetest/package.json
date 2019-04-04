@@ -1,19 +1,29 @@
 {
-  "name": "nodetest",
+  "name": "nodepress-js",
   "version": "1.0.0",
-  "description": "",
-  "main": "nodetest.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
+  "description": "NodePress JS - Next Generation Of Wordpress",
+  "main": "app.js", 
+  "keywords": [
+    "nodepress",
+    "node",
+    "js",
+    "wordpress"
+  ],
+  "author": "Mark Kumar",
+  "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "ejs": "^2.6.1",
-    "express": "^4.16.4",
-    "faker": "^4.1.0",
-    "mongoose": "^5.4.11",
-    "request": "^2.88.0"
+    "alasql": "*",
+    "body-parser": "*",
+    "ejs": "*",
+    "express": "*",
+    "formidable": "*",
+    "lodash": "*",
+    "moment": "*",
+    "moment-timezone": "*",
+    "mongodb": "*",  
+    "request": "*",
+    "uglify-js": "*",
+    "uglifycss": "*",
+    "unzip":"*"
   }
 }
