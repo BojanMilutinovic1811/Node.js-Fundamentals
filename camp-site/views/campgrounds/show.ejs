@@ -14,8 +14,19 @@
 <ul class="list-group">
     <% campground.comments.forEach(comment => { %>
     <li class="list-group-item">
-        <span class="comment-text"><%= comment.text %></span>
-        <span class="comment-author float-right"><%= comment.author.username %></span>
+        <span class="comment-text"><%= comment.author.username %> says: <%= comment.text %></span>
+
+        <% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
+
+        <span class="comment-author float-right">
+            <a href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit"><button><i
+                        class="fas fa-edit"></i></button></a>
+            <form class="d-inline"
+                action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                <button type="submit"><i class="fas fa-trash"></i></button>
+            </form>
+        </span>
+        <% } %>
     </li>
 
     <% }) %>
