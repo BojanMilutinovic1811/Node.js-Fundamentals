@@ -11,8 +11,12 @@ router.get('/register', (req, res) => {
 router.post('/register', (req, res) => {
     const newUser = new User({ username: req.body.username })
     User.register(newUser, req.body.password, (err, user) => {
-        if (err) console.log(err);
+        if (err) {
+            req.flash('error', err.message)
+            return res.render('auth/register')
+        }
         passport.authenticate('local')(req, res, () => {
+            req.flash('success', 'You are successfully logged in!')
             res.redirect('/campgrounds')
         })
     })
@@ -32,6 +36,7 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/logout', (req, res) => {
     req.logout()
+    req.flash('success', 'You are successfully logged out!')
     res.redirect('/campgrounds')
 })
 
