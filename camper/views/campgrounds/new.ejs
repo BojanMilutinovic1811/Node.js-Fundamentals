@@ -6,7 +6,6 @@
             <h2 class="text-center">Create a Camp-Site</h2>
             <form action='/campgrounds' method="POST">
                 <div class="form-group">
-                    <label for="name">Name</label>
                     <input type="text" id="name" class='form-control' name="campgrounds[location]" placeholder="Name">
                 </div>
                 <p>Upload Image</p>
@@ -20,8 +19,8 @@
 
 
                 <div class="mt-3">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="4" name="campgrounds[description]"></textarea>
+                    <textarea class="form-control" id="description" rows="4"
+                        name="campgrounds[description]">Description...</textarea>
                 </div>
                 <button type="submit" class="mt-3 btn btn-block btn-primary">Submit</button>
             </form>

@@ -1,0 +1,164 @@
+body {
+  font-family: cursive;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+
+#navigation, #foot {
+  background: transparent   !important;
+  z-index: 2;
+
+}
+
+#navigation {
+  position: relative;
+}
+
+
+nav a, footer a{
+  color: #514339   !important;
+  transition: .5s;
+}
+nav a:hover, footer a:hover {
+  color: white !important;
+}
+
+.title {
+  text-align: center;
+  font-family: "Dokdo", cursive;
+  font-size: 4rem;
+  text-transform: uppercase;
+}
+#logo {
+  font-size: 2rem;
+}
+
+main {
+  background: rgba(86, 141, 204, 0.6);
+  color: #514339;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+
+}
+
+.btn {
+  color: #fff;
+  background-color: #514339;
+  border: 1px #fff solid;
+}
+
+.btn:hover {
+  color: lightblue;
+  background-color: #514339;
+  border: lightblue 1px solid;
+}
+
+
+/* login and register form styles */
+
+.wrapper {
+  background:url(/styles/images/formbackground.jpg) center/cover;
+  height: 100vh;
+}
+
+.form-box {
+  
+  position: absolute;
+  width: 400px;
+  top: 20%;
+  left: 10%;
+  background: rgba(86, 141, 204, 0.6);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(243, 246, 250, 0.4)
+}
+
+.form-box h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #514339;
+}
+
+.input-box {
+  position: relative;
+}
+
+.input-box input {
+  font-size: 16px;
+  width: 100%;
+  padding: 10px 0;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.input-box textarea {
+  font-size: 16px;
+  width: 100%;
+  padding: 10px 0;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  color: #fff;
+  font-size: 16px;
+  pointer-events: none;
+  transition: .5s;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+  top: -18px;
+  left: 0;
+  color: #514339;
+  font-size: 12px;
+}
+
+input[type='submit'] {
+  background: #514339;
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+
+/* show page */
+
+.show-wrapper {
+  display: flex;
+}
+
+.show-description {
+  border: black solid 1px;
+  width: 50vw;
+  background: white;
+}
+
+.show-image {
+  border: 1px black solid;
+  width: 50vw;
+  height: 50vh;
+  background-position: center;
+  background-size: cover;
+}
