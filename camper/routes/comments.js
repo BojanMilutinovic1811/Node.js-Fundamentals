@@ -4,12 +4,12 @@ const Campground = require('../models/Campground')
 const Comment = require('../models/Comment')
 const middleware = require('../middleware')
 
-router.get('/:id/comments/new', middleware.isLoggedIn, (req, res) => {
-    Campground.findById(req.params.id)
-        .then(campground => {
-            res.render('comments/new', { campground })
-        })
-})
+// router.get('/:id/comments/new', middleware.isLoggedIn, (req, res) => {
+//     Campground.findById(req.params.id)
+//         .then(campground => {
+//             res.render('comments/new', { campground })
+//         })
+// })
 
 router.post('/:id/comments', middleware.isLoggedIn, (req, res) => {
     Campground.findById(req.params.id)

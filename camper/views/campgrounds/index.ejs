@@ -1,6 +1,7 @@
 <% include ../partials/header %>
 
-<h3 class="title">Campgrounds</h3>
+
+<h3 class="title">Campgrounds <a href="/campgrounds/new" class=" text-center btn btn-lg">Add New</a></h3>
 <div class="row d-flex flex-wrap justify-content-center">
     <% campgrounds.forEach(campground => { %>
 
@@ -8,8 +9,8 @@
         <img class="card-img-top img-fluid" src="<%= campground.image %>" />
         <div class="card-body">
             <h5 class="card-title"><%=campground.location %></h5>
-            <p class="card-text"><%= campground.description %></p>
-            <a href="/campgrounds/<%= campground._id%>" class="btn btn-block btn-primary">More Details</a>
+            <p class="card-text"><%= campground.description.substring(0,30) %>...</p>
+            <a href="/campgrounds/<%= campground._id%>" class="btn btn-block btn-primary">More Info</a>
 
         </div>
     </div>

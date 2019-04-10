@@ -6,6 +6,15 @@ body {
   min-height: 100vh;
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: white;
+}
 
 #navigation, #foot {
   background: transparent   !important;
@@ -15,23 +24,43 @@ body {
 
 #navigation {
   position: relative;
+  padding: 0 10px;
 }
 
+#logo, .nav-link {
+  padding: 0;
+}
+
+.footer-copyright {
+  padding: 0 !important;
+
+}
 
 nav a, footer a{
   color: #514339   !important;
   transition: .5s;
 }
 nav a:hover, footer a:hover {
-  color: white !important;
+  transform: scale(1.1)
 }
 
-.title {
+.title, .auth-title, .nav-link, footer a {
   text-align: center;
   font-family: "Dokdo", cursive;
-  font-size: 4rem;
   text-transform: uppercase;
+  color: #514339;
 }
+.title {
+  font-size: 4rem;
+}
+
+.auth-title, .nav-link {
+  font-size: 3rem;
+}
+ .nav-link, footer a {
+   font-size: 1.5rem;
+ }
+
 #logo {
   font-size: 2rem;
 }
@@ -61,11 +90,6 @@ main {
 
 
 /* login and register form styles */
-
-.wrapper {
-  background:url(/styles/images/formbackground.jpg) center/cover;
-  height: 100vh;
-}
 
 .form-box {
   
@@ -150,15 +174,15 @@ input[type='submit'] {
 }
 
 .show-description {
-  border: black solid 1px;
+  border-right: #514339 solid 1px;
   width: 50vw;
-  background: white;
+  background-color: lightblue;
+  padding: 1rem;
 }
 
 .show-image {
-  border: 1px black solid;
   width: 50vw;
-  height: 50vh;
+  height: 60vh;
   background-position: center;
   background-size: cover;
 }

@@ -3,23 +3,29 @@
     <div class="show-description">
         <h3 class="title"><%= campground.location %></h3>
         <p>Created by: <%= campground.author.username %></p>
+        <div class="mb-3">
+            <a class='btn btn-large' href="/campgrounds">Back to Campgrounds</a>
+            <a class='btn btn-large' href='/campgrounds/<%= campground._id %>/edit'>Edit</a>
+        </div>
+
+
 
         <% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
-        <a href='/campgrounds/<%= campground._id %>/edit'>Edit campground</a>
-        <form action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-            <input type="submit" value="delete">
-        </form>
+
         <% } %>
 
         <p><%= campground.description %></p>
 
         <br>
+        <form class='btn btn-danger float-right mr-5' action="/campgrounds/<%= campground._id %>?_method=DELETE"
+            method="POST">
+            <input type="submit" value="delete">
+        </form>
 
-        <a class='btn btn-large float-right' href="/campgrounds">Back toCampgrounds</a>
     </div>
     <div class="show-image-comments">
         <div class="show-image" style='background-image: url("<%= campground.image %>")'></div>
-        <h4>Comments:</h4>
+        <h4 class="ml-4 mt-2">Comments:</h4>
         <ul class="list-group show-comments">
             <% campground.comments.forEach(comment => { %>
             <li class="list-group-item">
@@ -40,9 +46,20 @@
             </li>
 
             <% }) %>
+            <li class="list-group-item">
+
+                <form action="/campgrounds/<%= campground._id %>/comments" method="POST">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Leave a comment..." name="comment[text]"
+                            aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit">Comment</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
         </ul>
-        <a href="/campgrounds/<%= campground._id %>/comments/new" class="btn float-right btn-primary mt-3">leave a
-            comment</a>
+
     </div>
 </div>
 
