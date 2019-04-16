@@ -5,7 +5,11 @@
         <p>Created by: <%= campground.author.username %></p>
         <div class="mb-3">
             <a class='btn btn-large' href="/campgrounds">Back to Campgrounds</a>
+            <% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+
             <a class='btn btn-large' href='/campgrounds/<%= campground._id %>/edit'>Edit</a>
+            <% } %>
+
         </div>
 
 
@@ -17,10 +21,13 @@
         <p><%= campground.description %></p>
 
         <br>
+        <% if(currentUser && campground.author.id.equals(currentUser._id)) { %>
+
         <form class='btn btn-danger float-right mr-5' action="/campgrounds/<%= campground._id %>?_method=DELETE"
             method="POST">
             <input type="submit" value="delete">
         </form>
+        <% } %>
 
     </div>
     <div class="show-image-comments">
